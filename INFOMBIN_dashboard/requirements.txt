@@ -1,0 +1,8 @@
+psycopg2-binary
+sqlalchemy
+pulp
+country_converter
+pandas
+dash
+scipy
+sklearn
