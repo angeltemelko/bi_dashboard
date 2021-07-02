@@ -6,7 +6,6 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 
-
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash('__name__', external_stylesheets=external_stylesheets)
@@ -25,7 +24,7 @@ data = data[["iso_code", "location", "total_cases", "new_cases", "total_deaths",
              "hosp_patients", "hosp_patients_per_million", "weekly_icu_admissions", "weekly_icu_admissions_per_million",
              "weekly_hosp_admissions", "weekly_hosp_admissions_per_million", "new_tests", "total_tests",
              "total_tests_per_thousand", "new_tests_per_thousand", "new_tests_smoothed",
-             "new_tests_smoothed_per_thousand", "positive_rate",  "total_vaccinations",
+             "new_tests_smoothed_per_thousand", "positive_rate", "total_vaccinations",
              "people_vaccinated", "people_fully_vaccinated", "new_vaccinations", "new_vaccinations_smoothed",
              "total_vaccinations_per_hundred", "people_vaccinated_per_hundred", "people_fully_vaccinated_per_hundred",
              "new_vaccinations_smoothed_per_million", "stringency_index", "population"]]
@@ -56,7 +55,6 @@ print("USA total deaths per million",
 print("USA total number fully vaccinated",
       USA.iloc[-1, USA.columns.get_loc('people_fully_vaccinated')])
 
-"""
 df = pd.DataFrame({
     "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
     "Amount": [14, 1, 2, 2, 4, 5],
@@ -66,7 +64,20 @@ df = pd.DataFrame({
 fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
 
 app.layout = html.Div(children=[
-    html.H1(children='Stringency index dashboard'),
+
+    html.Div(children=[
+        html.Nav(className="nav nav-pills", children=[
+            html.A('App1', className="nav-item nav-link btn", href='/apps/App1'),
+            html.A('App2', className="nav-item nav-link active btn", href='/apps/App2')])]),
+
+    html.H1(children='Stringency index dashboard',
+            style={
+                'textAlign': 'center',
+                'background-color': 'grey',
+                'padding': '10px',
+                'color': 'white'
+            }
+            ),
 
     html.Div(children='''
         This dashboard will illustrate how open a country will be.
@@ -77,15 +88,6 @@ app.layout = html.Div(children=[
         figure=fig
     )
 ])
-
-app.layout = dash_table.DataTable(
-    id='table',
-    columns=[{"name": i, "id": i} for i in df.columns],
-    data=df.to_dict('records'),
-)
-"""
-# print(covidData)
-
 
 if __name__ == '__main__':
     app.run_server(host='0.0.0.0', port=8080, debug=True)

@@ -6,3 +6,4 @@ pandas
 dash
 scipy
 sklearn
+dash-bootstrap-components
